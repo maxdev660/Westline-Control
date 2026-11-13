@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080c13">
+  <meta name="description" content="WESTLINE Control – private Steuerzentrale für deine GTA/FiveM-Welt.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>WESTLINE Control</title>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brandmark">W<span>.</span></div><div><strong>WESTLINE</strong><small>CONTROL SYSTEM / v1.0</small></div></div>
+    <div class="nav-caption">WORKSPACE</div>
+    <button type="button" class="navitem selected" id="nav-dashboard" data-nav="dashboard"><span class="nicon">◈</span> Übersicht <span class="nav-tail">↗</span></button>
+    <button type="button" class="navitem" id="nav-favorites" data-nav="favorites"><span class="nicon">☆</span> Favoriten <span class="nav-tail">♡</span></button>
+    <div class="nav-caption">STEUERUNG <span id="nav-count"></span></div>
+    <div id="category-nav"></div>
+    <div class="sidebar-bottom"><span class="signal" id="sidebar-dot"></span><span id="sidebar-status">Nicht verbunden</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="topbar-left"><button id="menu-button" class="iconbutton mobile-only" aria-label="Navigation öffnen">☰</button><span class="breadcrumb">WESTLINE <span>/</span> <b id="breadcrumb">Übersicht</b></span></div>
+      <div class="topbar-right"><span class="mode-chip" id="mode-chip">WEB APP</span><button id="connect-button" class="connect-button"><span id="top-dot" class="signal"></span><span id="top-connection">Verbinden</span></button></div>
+    </header>
+    <main class="main" id="main">
+      <div class="hero"><div class="hero-inner"><div class="eyebrow">PRIVATE GTA V EXPERIENCE <span class="line"></span> YOUR WORLD, YOUR RULES</div><h1 id="page-title">Control Center<span class="h-accent">.</span></h1><p id="page-subtitle">Die Kommandozentrale für deine private FiveM-Welt – vom PC, Tablet und Smartphone.</p><div class="hero-actions"><button class="primary-button" data-nav="environment" id="hero-weather">☀ &nbsp; Wetter steuern</button><button class="ghost-button" data-nav="spawn" id="hero-vehicle">↗ &nbsp; Fahrzeuge</button></div></div><div class="hero-art" aria-hidden="true"><span>W</span><i></i></div></div>
+      <div id="dashboard-view">
+        <div class="section-head"><div><h2>Systemübersicht</h2><p>Die wichtigsten Steuerungen im direkten Zugriff.</p></div><span class="subtle-tag" id="counter-pill">–</span></div>
+        <div class="stat-grid"><div class="stat-card"><span>VERBINDUNG</span><strong id="stat-connection">GETRENNT</strong><small id="stat-latency">Cloudflare Relay optional</small></div><div class="stat-card"><span>BEREICHE</span><strong id="stat-categories">20</strong><small>Eigene Funktionsbereiche</small></div><div class="stat-card"><span>STEUERUNGEN</span><strong id="stat-actions">210</strong><small>Interaktive Bedienelemente</small></div><div class="stat-card"><span>MODUS</span><strong id="stat-mode">REMOTE</strong><small id="mode-desc">Samsung / PC / Browser</small></div></div>
+        <div class="section-head"><div><h2>Quick Actions</h2><p>Häufige Funktionen für deinen nächsten Drive.</p></div></div>
+        <div class="quick-grid" id="quick-grid"></div>
+        <div class="section-head"><div><h2>Funktionsbereiche</h2><p>Alles übersichtlich nach Aufgaben sortiert.</p></div></div>
+        <div class="category-grid" id="category-grid"></div>
+      </div>
+      <div id="control-view" hidden>
+        <div class="control-heading"><div><span id="section-category" class="eyebrow">CONTROL</span><h2 id="section-title">Environment</h2><p id="section-desc"></p></div><div class="searchbox"><span>⌕</span><input id="search-input" type="search" placeholder="Funktion suchen ..." aria-label="Funktionen suchen"></div></div>
+        <div id="control-grid" class="control-grid"></div>
+        <div id="empty-search" class="empty-state" hidden>Keine Funktion gefunden. Versuche einen anderen Suchbegriff.</div>
+      </div>
+      <div id="favorites-view" hidden><div class="control-heading"><div><span class="eyebrow">MY CONTROL</span><h2>Favoriten</h2><p>Mit ★ kannst du wichtige Aktionen speichern.</p></div></div><div id="favorites-grid" class="control-grid"></div></div>
+      <footer>WESTLINE CONTROL © 2026 <span>PRIVATE DEVELOPMENT BUILD · KEINE VERBINDUNG OHNE EINRICHTUNG</span></footer>
+    </main>
+  </div>
+</div>
+<div id="drive-overlay" class="drive-overlay" hidden aria-live="off"></div>
+<div class="overlay" id="settings-overlay" hidden><div class="dialog"><div class="dialog-head"><div><span class="eyebrow">SICHERE VERBINDUNG</span><h2>Gerät verbinden</h2></div><button class="iconbutton" id="close-settings" aria-label="Schließen">✕</button></div><p class="dialog-copy">Für Handy und Tablet: Die URL deines Cloudflare Workers und deinen privaten Verbindungscode eingeben. Beides bleibt lokal auf diesem Gerät gespeichert.</p><label class="field-label" for="worker-url">CLOUDFLARE WORKER URL</label><input id="worker-url" type="url" placeholder="https://westline-relay.<account>.workers.dev" autocomplete="off"><label class="field-label" for="control-token">VERBINDUNGSCODE</label><input id="control-token" type="password" placeholder="Dein selbst gewählter geheimer Code" autocomplete="off"><div class="dialog-notice">⚠ Nicht den FiveM-Server-Key eingeben! Verwende einen neuen, langen privaten Code. Keine Zugangsdaten in GitHub-Dateien speichern.</div><div class="dialog-actions"><button class="ghost-button" id="test-connection">Verbindung testen</button><button class="primary-button" id="save-connection">Speichern</button></div><div class="connection-result" id="connection-result" role="status"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="./catalog.js"></script><script src="./app.js"></script>
+</body></html>
